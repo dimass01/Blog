@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="sdz_blog.example.class">Sdz\Bundle\BlogBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="sdz_blog.example" class="%sdz_blog.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    <parameters>
+        <parameter key="toto">totoeazea</parameter>
+    </parameters>  
+    <services>
+        <service id="sdz_blog.antispam" class="Sdz\Bundle\BlogBundle\Antispam\SdzAntispam">
+            <argument type="service" id="mailer" />
+            <argument>%locale%</argument>
+            <argument>3</argument>
+        </service>
+    </services>
+    
+    
+</container>
