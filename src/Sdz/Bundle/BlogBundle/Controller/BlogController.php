@@ -122,9 +122,14 @@ class BlogController extends Controller
         if ($article == null) {
           throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
+        
+
+        $form = $this->createForm(new ArticleType, $article);
+        
         // Ici, on s'occupera de la création et de la gestion du formulaire
         return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
-          'article' => $article
+           'form' => $form->createView(),
+           'article' => $article
         ));
     }  
     

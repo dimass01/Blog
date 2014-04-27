@@ -16,6 +16,10 @@ class ArticleType extends AbstractType
       ->add('contenu',     'textarea')
       ->add('auteur',      'text')
       ->add('publication', 'checkbox', array('required' => false))
+      ->add('image',        new ImageType())
+      ->add('categories', 'collection', array('type' => new CategorieType(),
+                                              'allow_add'    => true,
+                                              'allow_delete' => true))
     ;
   }
 
