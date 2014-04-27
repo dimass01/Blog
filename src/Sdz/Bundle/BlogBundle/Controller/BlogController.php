@@ -85,7 +85,7 @@ class BlogController extends Controller
   {
 
   $article = new Article;
-  $form = $this->createForm(new ArticleType, $article);
+  $form = $this->createForm(new ArticleType(array("Symfony2","Évènement")), $article);
 
 
   if ($request->getMethod() == 'POST') {

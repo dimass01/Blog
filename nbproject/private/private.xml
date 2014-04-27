@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/voir.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/index.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/app/config/parameters.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/Article.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/app/config/parameters.yml.dist</file>
-            <file>file:/C:/wamp/www/Symfony/app/config/config.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/modifier.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/menu.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Controller/BlogController.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/Sdz/Bundle/BlogBundle/Entity/Article.php</file>
+            <file>file:/C:/wamp/www/Blog/web/js/jquery-1.11.0.js</file>
+            <file>file:/C:/wamp/www/Blog/web/config.php</file>
+            <file>file:/C:/wamp/www/Blog/app/SymfonyRequirements.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/SdzBlogBundle.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/formulaire.html.twig</file>
+            <file>file:/C:/wamp/www/Blog/app/check.php</file>
         </group>
     </open-files>
 </project-private>
