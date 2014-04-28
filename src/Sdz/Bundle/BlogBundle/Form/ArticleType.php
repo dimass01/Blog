@@ -27,7 +27,6 @@ class ArticleType extends AbstractType
         ->add('titre',       'text')
         ->add('contenu',     'textarea')
         ->add('auteur',      'text')
-        ->add('publication', 'checkbox', array('required' => false))
         ->add('image',        new ImageType())
        /* ->add('categories', 'collection', array('type' => new CategorieType(),
                                                 'allow_add'    => true,
@@ -42,9 +41,32 @@ class ArticleType extends AbstractType
                                           }
 
             )
-  );
-    ;
-  }
+         );
+            
+            
+   $factory = $builder->getFormFactory();
+    // On ajoute une fonction qui va écouter l'évènement PRE_SET_DATA
+    $builder->addEventListener(
+      FormEvents::PRE_SET_DATA, // Ici, on définit l'évènement qui nous intéresse
+      function(FormEvent $event) use ($factory) { // Ici, on définit une fonction qui sera exécutée lors de l'évènement
+        $article = $event->getData();
+        // Cette condition est importante, on en reparle plus loin
+        if (null === $article) {
+          return; // On sort de la fonction lorsque $article vaut null
+        }
+        // Si l'article n'est pas encore publié, on ajoute le champ publication
+        if (false === $article->getPublication()) {
+          $event->getForm()->add(
+            $factory->createNamed('publication', 'checkbox', null, array('required' => false))
+          );
+        } else { // Sinon, on le supprime
+          $event->getForm()->remove('publication');
+        }
+      }
+    );
+            
+         
+    }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
   {
