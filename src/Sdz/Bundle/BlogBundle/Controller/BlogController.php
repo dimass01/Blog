@@ -11,6 +11,7 @@ Use Sdz\Bundle\BlogBundle\Entity\Article;
 Use Sdz\Bundle\BlogBundle\Entity\Image;
 Use Sdz\Bundle\BlogBundle\Entity\Commentaire;
 Use Sdz\Bundle\BlogBundle\Form\ArticleType;
+Use Sdz\Bundle\BlogBundle\Form\ArticleEditType;
 class BlogController extends Controller
 {
     /**
@@ -85,7 +86,7 @@ class BlogController extends Controller
   {
 
   $article = new Article;
-  $form = $this->createForm(new ArticleType, $article);
+  $form = $this->createForm(new ArticleType(array("Symfony2","Évènement")), $article);
 
 
   if ($request->getMethod() == 'POST') {
@@ -124,7 +125,7 @@ class BlogController extends Controller
         }
         
 
-        $form = $this->createForm(new ArticleType, $article);
+        $form = $this->createForm(new ArticleEditType(array("Symfony2","Évènement")), $article);
         
         // Ici, on s'occupera de la création et de la gestion du formulaire
         return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
