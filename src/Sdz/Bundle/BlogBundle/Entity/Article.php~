@@ -5,6 +5,7 @@ namespace Sdz\Bundle\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+
 /**
  * Article
  *
@@ -52,7 +53,7 @@ class Article
     private $contenu;
   
     /**
-    * @ORM\Column(name="publication", type="boolean")
+    * @ORM\Column(name="publication", type="boolean" ,  nullable=true)
     */
     private $publication;
     
@@ -101,7 +102,8 @@ class Article
     public function __construct()
     {
         $this->date     = new \Datetime;
-        $this->publication  = true;
+        $this->publication  = false;
+        $this->nbCommentaires  = 0;
         $this->categories   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
 
@@ -407,5 +409,38 @@ class Article
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add articleCompentences
+     *
+     * @param \Sdz\Bundle\BlogBundle\Entity\ArticleCompetence $articleCompentences
+     * @return Article
+     */
+    public function addArticleCompentence(\Sdz\Bundle\BlogBundle\Entity\ArticleCompetence $articleCompentences)
+    {
+        $this->articleCompentences[] = $articleCompentences;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleCompentences
+     *
+     * @param \Sdz\Bundle\BlogBundle\Entity\ArticleCompetence $articleCompentences
+     */
+    public function removeArticleCompentence(\Sdz\Bundle\BlogBundle\Entity\ArticleCompetence $articleCompentences)
+    {
+        $this->articleCompentences->removeElement($articleCompentences);
+    }
+
+    /**
+     * Get articleCompentences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticleCompentences()
+    {
+        return $this->articleCompentences;
     }
 }

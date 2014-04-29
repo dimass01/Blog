@@ -53,7 +53,7 @@ class Article
     private $contenu;
   
     /**
-    * @ORM\Column(name="publication", type="boolean")
+    * @ORM\Column(name="publication", type="boolean" ,  nullable=true)
     */
     private $publication;
     
@@ -102,7 +102,7 @@ class Article
     public function __construct()
     {
         $this->date     = new \Datetime;
-        $this->publication  = true;
+        $this->publication  = false;
         $this->nbCommentaires  = 0;
         $this->categories   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();

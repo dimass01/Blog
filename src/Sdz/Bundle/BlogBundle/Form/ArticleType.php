@@ -6,6 +6,8 @@ namespace Sdz\Bundle\BlogBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 class ArticleType extends AbstractType
 {
     
@@ -57,10 +59,10 @@ class ArticleType extends AbstractType
         // Si l'article n'est pas encore publié, on ajoute le champ publication
         if (false === $article->getPublication()) {
           $event->getForm()->add(
-            $factory->createNamed('publication', 'checkbox', null, array('required' => false))
+            $factory->createNamed('publication', 'checkbox', null, array('required' => false, 'auto_initialize' => false))
           );
         } else { // Sinon, on le supprime
-          $event->getForm()->remove('publication');
+          //$event->getForm()->remove('publication');
         }
       }
     );

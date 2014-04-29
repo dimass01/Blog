@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Sdz\Bundle\BlogBundle\Entity\ImageRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -95,31 +94,7 @@ class Image
     }
     
     
-    public function getFile()
-{
-    return $this->file;
-}
-
-    public function setFile($file)
-{
-        $this->file = $file;
-        return $this;
-}
-    
-
-
-    /**
-    * @ORM\PrePersist
-    * @ORM\PreUpdate
-    */
-
-   public function preUpload()
-   {
-        
-   }
-
-
-   public function upload()
+  public function upload()
   {
     // Si jamais il n'y a pas de fichier (champ facultatif)
     if (null === $this->file) {
@@ -130,7 +105,7 @@ class Image
     // On déplace le fichier envoyé dans le répertoire de notre choix
     $this->file->move($this->getUploadRootDir(), $name);
     // On sauvegarde le nom de fichier dans notre attribut $url
-    $this->url = $this->getUploadDir()."/".$name;
+    $this->url = $name;
     // On crée également le futur attribut alt de notre balise <img>
     $this->alt = $name;
   }
@@ -142,6 +117,6 @@ class Image
   protected function getUploadRootDir()
   {
     // On retourne le chemin relatif vers l'image pour notre code PHP
-    return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+    return __DIR__.'/../../../../web/'.$this->getUploadDir();
   }
 }

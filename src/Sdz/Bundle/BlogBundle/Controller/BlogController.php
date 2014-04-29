@@ -66,7 +66,7 @@ class BlogController extends Controller
     // On récupère l'EntityManager
 
     // On récupère les articleCompetence pour l'article $article
-    $liste_articleCompetence = $this->get('doctrine')->getEntityManager()->getRepository('SdzBlogBundle:ArticleCompetence')
+    $liste_articleCompetence = $this->get('doctrine')->getManager()->getRepository('SdzBlogBundle:ArticleCompetence')
                             ->findByArticle($article->getId());
 
     // Puis modifiez la ligne du render comme ceci, pour prendre en compte les articleCompetence :
@@ -91,8 +91,10 @@ class BlogController extends Controller
 
   if ($request->getMethod() == 'POST') {
     $form->bind($request);
+    
 
     if ($form->isValid()) {
+      $article->getImage()->upload();
       $em = $this->getDoctrine()->getManager();
       $em->persist($article);
       $em->flush();
@@ -132,6 +134,8 @@ class BlogController extends Controller
            'form' => $form->createView(),
            'article' => $article
         ));
+        
+        
     }  
     
      /**
