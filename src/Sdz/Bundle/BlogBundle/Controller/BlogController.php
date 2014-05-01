@@ -112,29 +112,35 @@ class BlogController extends Controller
      * @Route("/modifier/{id}", name="sdzblog_modifier",requirements = {"id" = "\d+"})
      * @Template()
      */
-    public function modifierAction($id)
+    public function modifierAction(Article $article,Request $request)
     {
-        // On récupère l'EntityManager
-        $em = $this->getDoctrine()
-                   ->getManager();
-        // On récupère l'entité correspondant à l'id $id
-        $article = $em->getRepository('SdzBlogBundle:Article')
-                      ->find($id);
-        // Si l'article n'existe pas, on affiche une erreur 404
-        if ($article == null) {
-          throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
-        }
-        
+     if ($article == null) {
+      throw $this->createNotFoundException('Article[id='.$article->getId().'] inexistant');
+    }
+    
+  $form = $this->createForm(new ArticleEditType(array("Symfony2","Évènement")), $article);
 
-        $form = $this->createForm(new ArticleEditType(array("Symfony2","Évènement")), $article);
-        
-        // Ici, on s'occupera de la création et de la gestion du formulaire
+
+  if ($request->getMethod() == 'POST') {
+    $form->bind($request);
+    
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($article);
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('sdzblog_accueil'));
+    }
+  }
+
+  // Ici, on s'occupera de la création et de la gestion du formulaire
         return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
            'form' => $form->createView(),
            'article' => $article
         ));
-        
-        
+
+    
     }  
     
      /**
@@ -147,24 +153,34 @@ class BlogController extends Controller
     if ($article == null) {
       throw $this->createNotFoundException('Article[id='.$article->getId().'] inexistant');
     }
-   if ($request->isMethod('POST')){
-      // Si la requête est en POST, on supprimera l'article
-      
+    
+    // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+    // Cela permet de protéger la suppression d'article contre cette faille
+    $form = $this->createFormBuilder()->getForm();
+    
+    
+    if ($request->isMethod('POST')){
+    $form->bind($request);
+
+         if ($form->isValid()) {
+
+           // On supprime l'article
+           $em = $this->getDoctrine()->getManager();
+           $em->remove($article);
+           $em->flush();
+       
        $request->getSession()->getFlashBag()->add('info', 'Article bien supprimé');
       // Puis on redirige vers l'accueil
       return $this->redirect( $this->generateUrl('sdzblog_accueil') );
     }
-    // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-    $em = $this->getDoctrine()
-               ->getManager();
-    $em->remove($article);
-    $em->flush();
-
-    $request->getSession()->getFlashBag()->add('info', 'Article bien supprimé');
-      // Puis on redirige vers l'accueil
-      return $this->redirect( $this->generateUrl('sdzblog_accueil') );
     
-  
+   }
+
+    // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+    return $this->render('SdzBlogBundle:Blog:supprimer.html.twig', array(
+      'article' => $article,
+      'form'    => $form->createView()
+    ));
     }  
     
       /**

@@ -1,0 +1,31 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "SdzBlogBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block sdzblog_body %}
+
+ 
+
+<h3>Supprimer article</h3>
+<div class="well">
+<form action="{{ path('sdzblog_supprimer', {'id': article.id}) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        
+        êtes vous certains de vouloir supprimer l'article {{article.titre }} ?
+    </p>
+    
+    <a href="{{ path('sdzblog_voir', {'slug': article.slug}) }}" class="btn">
+      <i class="icon-chevron-left"></i>
+      Retour à l'article
+    </a>
+ 
+<input type="submit" class="btn btn-danger" value="Supprimer" />
+</form>
+</div>
+
+{% endblock %}
