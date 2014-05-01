@@ -94,7 +94,6 @@ class BlogController extends Controller
     
 
     if ($form->isValid()) {
-      $article->getImage()->upload();
       $em = $this->getDoctrine()->getManager();
       $em->persist($article);
       $em->flush();
@@ -117,7 +116,7 @@ class BlogController extends Controller
     {
         // On récupère l'EntityManager
         $em = $this->getDoctrine()
-                   ->getEntityManager();
+                   ->getManager();
         // On récupère l'entité correspondant à l'id $id
         $article = $em->getRepository('SdzBlogBundle:Article')
                       ->find($id);
@@ -142,18 +141,11 @@ class BlogController extends Controller
      * @Route("/supprimer/{id}", name="sdzblog_supprimer", requirements = {"id" = "\d+"})
      * @Template()
      */
-    public function supprimerAction($id, Request $request)
+    public function supprimerAction(Article $article, Request $request)
     {
-    // On récupère l'EntityManager
-    $em = $this->get('doctrine')
-               ->getEntityManager();
-    // On récupère l'entité correspondant à l'id $id
-    $article = $em->getRepository('SdzBlogBundle:Article')
-                  ->find($id);
-    
-    // Si l'article n'existe pas, on affiche une erreur 404
+   
     if ($article == null) {
-      throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
+      throw $this->createNotFoundException('Article[id='.$article->getId().'] inexistant');
     }
    if ($request->isMethod('POST')){
       // Si la requête est en POST, on supprimera l'article
@@ -163,7 +155,11 @@ class BlogController extends Controller
       return $this->redirect( $this->generateUrl('sdzblog_accueil') );
     }
     // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-   // return $this->render('SdzBlogBundle:Blog:supprimer.html.twig', array('article' => $article ));
+    $em = $this->getDoctrine()
+               ->getManager();
+    $em->remove($article);
+    $em->flush();
+
     $request->getSession()->getFlashBag()->add('info', 'Article bien supprimé');
       // Puis on redirige vers l'accueil
       return $this->redirect( $this->generateUrl('sdzblog_accueil') );

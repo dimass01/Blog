@@ -38,7 +38,7 @@ class Commentaire
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime" ,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
     
