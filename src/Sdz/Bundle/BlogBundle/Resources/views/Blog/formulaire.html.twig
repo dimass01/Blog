@@ -4,9 +4,10 @@
 {# Je dis « probablement » car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas #}
 
 {# src/Sdz/BlogBundle/Resources/views/Blog/formulaire.html.twig #}
+
 <h3>Formulaire d'article</h3>
 <div class="well">
-<form action="{{ path('sdzblog_ajouter') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ app.request.uri }}" method="post" {{ form_enctype(form) }}>
 {# Les erreurs générales du formulaire. #}
 {{ form_errors(form) }}
 <div>
