@@ -6,3 +6,4 @@
 /app/config/parameters.yml
 /.svn
 /nbproject/*
+/nbproject/private/private.xml
