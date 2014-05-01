@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Sdz\Bundle\BlogBundle\Entity\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -24,9 +25,9 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="extension", type="string", length=255)
      */
-    private $url;
+    private $extension;
 
     /**
      * @var string
@@ -47,28 +48,7 @@ class Image
         return $this->id;
     }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     * @return Image
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
 
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string 
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
 
     /**
      * Set alt
@@ -94,20 +74,53 @@ class Image
     }
     
     
-  public function upload()
-  {
+    public function getFile()
+{
+    return $this->file;
+}
+
+    public function setFile($file)
+{
+        $this->file = $file;
+        return $this;
+}
+    
+
+
+    /**
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+
+   public function preUpload()
+   {
     // Si jamais il n'y a pas de fichier (champ facultatif)
     if (null === $this->file) {
       return;
     }
-    // On garde le nom original du fichier de l'internaute
-    $name = $this->file->getClientOriginalName();
-    // On déplace le fichier envoyé dans le répertoire de notre choix
-    $this->file->move($this->getUploadRootDir(), $name);
     // On sauvegarde le nom de fichier dans notre attribut $url
-    $this->url = $name;
+    $this->url = $this->getUploadDir()."/".$this->getImageFilename();
     // On crée également le futur attribut alt de notre balise <img>
-    $this->alt = $name;
+    $this->alt = $this->getImageFilename();
+   }
+
+    public function getImageFilename()
+    {
+        // On garde le nom original du fichier de l'internaute
+        $extension = $this->file->getClientOriginalExtension();
+        $filename =$this->id;
+        return $filename.".".$extension;
+    }
+   
+ /**
+    * @ORM\PostPersist
+    * @ORM\PostUpdate
+    */
+   public function upload()
+  {
+    // On déplace le fichier envoyé dans le répertoire de notre choix
+    $this->file->move($this->getUploadRootDir(), $this->getImageFilename());
+  
   }
   public function getUploadDir()
   {
@@ -117,6 +130,6 @@ class Image
   protected function getUploadRootDir()
   {
     // On retourne le chemin relatif vers l'image pour notre code PHP
-    return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    return __DIR__.'/../../../../../web/'.$this->getUploadDir();
   }
 }

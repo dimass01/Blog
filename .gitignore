@@ -7,3 +7,5 @@
 /.svn
 /nbproject/*
 /nbproject/private/private.xml
+/web/uploads/*
+
