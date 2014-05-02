@@ -4,6 +4,7 @@ namespace Sdz\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,28 +27,28 @@ class Article
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=10,max=100)
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=2,max=100)
      * @ORM\Column(name="auteur", type="string", length=255)
      */
     private $auteur;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
@@ -63,6 +64,7 @@ class Article
     private $image;
     
      /**
+      * @Assert\Valid()
       * @ORM\ManyToMany(targetEntity="Sdz\Bundle\BlogBundle\Entity\Categorie", cascade={"persist"})
       */
     private $categories;

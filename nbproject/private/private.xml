@@ -6,14 +6,20 @@
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/DataFixtures/ORM/Categories.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/ImageRepository.php</file>
             <file>file:/C:/wamp/www/Blog/app/SymfonyRequirements.php</file>
+            <file>file:/C:/wamp/www/Blog/.gitignore</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/SdzBlogBundle.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/Categorie.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Form/ImageType.php</file>
+            <file>file:/C:/wamp/www/Blog/vendor/symfony/symfony/src/Symfony/Component/HttpFoundation/File/UploadedFile.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/Article.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/Commentaire.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Resources/views/Blog/Article.html.twig</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/ArticleCompetence.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/CommentaireRepository.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/Competence.php</file>
             <file>file:/C:/wamp/www/Blog/web/js/jquery-1.11.0.js</file>
             <file>file:/C:/wamp/www/Blog/web/config.php</file>
+            <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/Image.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Form/ArticleType.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Entity/CategorieRepository.php</file>
             <file>file:/C:/wamp/www/Blog/src/Sdz/Bundle/BlogBundle/Controller/BlogController.php</file>
