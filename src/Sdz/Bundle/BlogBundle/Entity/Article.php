@@ -5,7 +5,9 @@ namespace Sdz\Bundle\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Sdz\Bundle\BlogBundle\Validator\AntiFlood;
 
 /**
  * Article
@@ -13,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="sdz_article")
  * @ORM\Entity(repositoryClass="Sdz\Bundle\BlogBundle\Entity\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields="titre", message="Un article existe déjà avec ce titre.")
  */
 class Article
 {
@@ -49,6 +52,7 @@ class Article
     /**
      * @var string
      * @Assert\NotBlank()
+     * @AntiFlood(message="au moins 15 caract: %string%")
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
@@ -445,4 +449,51 @@ class Article
     {
         return $this->articleCompentences;
     }
+    
+    // met le message d erreur au niveau de contenu
+     /**
+     @Assert\Callback()
+     *
+     */
+    public function contenuValide(ExecutionContextInterface $context)
+     {
+       $mots_interdits = array('échec', 'abandon');
+
+       // On vérifie que le contenu ne contient pas l'un des mots
+       if (preg_match('#'.implode('|', $mots_interdits).'#', $this->getContenu())) {
+         // La règle est violée, on définit l'erreur et son message
+         // 1er argument : on dit quel attribut l'erreur concerne, ici « contenu »
+         // 2e argument : le message d'erreur
+         $context->addViolationAt('contenu', 'Contenu invalide car il contient un mot interdit.Callback', array(), null);
+       }
+     }
+     
+     // met le message d'erreur en haut de la page
+               /**
+     * @Assert\True(message=" Mot interdit: isContenuValid")
+     */
+    public function isContenuValid()
+     {
+       $mots_interdits = array('échec', 'abandon');
+
+       // On vérifie que le contenu ne contient pas l'un des mots
+       if (preg_match('#'.implode('|', $mots_interdits).'#', $this->getContenu())) {
+         // La règle est violée, on définit l'erreur et son message
+         // 1er argument : on dit quel attribut l'erreur concerne, ici « contenu »
+         // 2e argument : le message d'erreur
+         return false;
+       }
+       return true;
+     }
+     
+     
+      // je ne comprend pas tres bien comment marche is + attribut existant. 
+     /**
+     * @Assert\Length(min=5,max=100)
+     */
+    public function isContenu()
+     {
+       return false;
+     }
+     
 }

@@ -89,11 +89,10 @@ class BlogController extends Controller
   $form = $this->createForm(new ArticleType(array("Symfony2","Évènement")), $article);
 
 
-  if ($request->getMethod() == 'POST') {
-    $form->bind($request);
+ if ($request->isMethod('POST')){
     
 
-    if ($form->isValid()) {
+    if ( $form->handleRequest($request)->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($article);
       $em->flush();
@@ -121,9 +120,8 @@ class BlogController extends Controller
   $form = $this->createForm(new ArticleEditType(array("Symfony2","Évènement")), $article);
 
 
-  if ($request->getMethod() == 'POST') {
-    $form->bind($request);
-    
+   if ($request->isMethod('POST')){
+    $form->handleRequest($request);
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
@@ -160,7 +158,7 @@ class BlogController extends Controller
     
     
     if ($request->isMethod('POST')){
-    $form->bind($request);
+    $form->handleRequest($request);
 
          if ($form->isValid()) {
 
