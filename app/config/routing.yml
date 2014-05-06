@@ -7,4 +7,14 @@ sdz_blog:
     resource: "@SdzBlogBundle/Controller/"
     type:     annotation
     prefix:   /blog
+    
+login:
+    pattern:   /login
+    defaults:  { _controller: SdzUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
 

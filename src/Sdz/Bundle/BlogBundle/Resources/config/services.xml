@@ -26,7 +26,7 @@
             <argument>%locale%</argument>
             <argument>3</argument>
         </service>
-         <service id="sdzblog.validator.antiflood" class="Sdz\Bundle\BlogBundle\Validator\AntiFloodValidator" scope="request">
+         <service id="sdzblog.validator.antiflood" class="Sdz\Bundle\BlogBundle\Validator\Constraint\AntiFloodValidator" scope="request">
             <argument type="service" id="request" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="validator.constraint_validator"  alias="sdzblog_antiflood"/>
