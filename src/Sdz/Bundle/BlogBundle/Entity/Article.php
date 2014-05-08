@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Sdz\Bundle\BlogBundle\Validator\AntiFlood;
+use Sdz\Bundle\BlogBundle\Validator\Constraint as SdzAssert;
 
 /**
  * Article
@@ -52,7 +52,7 @@ class Article
     /**
      * @var string
      * @Assert\NotBlank()
-     * @AntiFlood(message="au moins 15 caract: %string%")
+     * @SdzAssert\AntiFlood(message="au moins 15 caract: %string%")
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
