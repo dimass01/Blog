@@ -10,10 +10,12 @@ class SecurityController extends Controller
   public function loginAction(Request $request)
   {
     // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-    if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+      // ne sert a rien car dans le parefeu login, il n y a pas d authentification, donc pas de role.
+      // En effet le parefeu login n'appartient pas au parefeu main 
+    if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
       return $this->redirect($this->generateUrl('homepage'));
     }
-
+  
     $session = $request->getSession();
     // On vérifie s'il y a des erreurs d'une précédente soumission du formulaire
     if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
