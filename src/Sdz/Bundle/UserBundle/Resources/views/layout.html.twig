@@ -1,16 +1,17 @@
 
-{# On étend notre layout Ã  nous #}
+{# On étend notre layout #}
 {% extends "::layout.html.twig" %}
-{# Dans notre layout, il faut dÃ©finir le block body #}
+{# Dans notre layout, il faut définir le block body #}
 {% block body %}
-{# On affiche les messages flash que dÃ©finissent les contrÃ´leurs du bundle #}
+{# On affiche les messages flash que définissent les contrôleurs
+du bundle #}
 {% for key, message in app.session.flashbag.all() %}
 <div class="alert alert-{{ key }}">
 {{ message|trans({}, 'FOSUserBundle') }}
 </div>
 {% endfor %}
-{# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+{# On définit ce block, dans lequel vont venir s'insérer les
+autres vues du bundle #}
 {% block fos_user_content %}
 {% endblock fos_user_content %}
 {% endblock %}
-- See more at: http://www.tutoriel-symfony2.fr/livre/codesource#sthash.DBdHDmpV.dpuf
