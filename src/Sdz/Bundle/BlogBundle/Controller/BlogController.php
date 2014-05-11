@@ -12,6 +12,8 @@ Use Sdz\Bundle\BlogBundle\Entity\Image;
 Use Sdz\Bundle\BlogBundle\Entity\Commentaire;
 Use Sdz\Bundle\BlogBundle\Form\ArticleType;
 Use Sdz\Bundle\BlogBundle\Form\ArticleEditType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 class BlogController extends Controller
 {
     /**
@@ -27,7 +29,7 @@ class BlogController extends Controller
      */
     public function indexAction($page)
     {
-        
+       // echo  $this->getUser()->getUsername();
         $nombreArticlesParPage=$this->container->getParameter('blog')['nombreArticlesParPage'];
         
         $text="eaeaeae";
@@ -80,11 +82,18 @@ class BlogController extends Controller
      /**
      * @Route("/ajouter", name="sdzblog_ajouter")
      * @Template()
+     * @Secure(roles="ROLE_AUTEUR, ROLE_MODERATEUR") // nécessite les 2 roles
      */
 
   public function ajouterAction(Request $request)
   {
-
+      
+    /*   // On teste que l'utilisateur dispose bien du rôle ROLE_AUTEUR
+    if (!$this->get('security.context')->isGranted('ROLE_AUTEUR')) {
+      // Sinon on déclenche une exception « Accès interdit »
+      throw new AccessDeniedHttpException('Accès limité aux auteurs');
+    }
+    */
   $article = new Article;
   $form = $this->createForm(new ArticleType(array("Symfony2","Évènement")), $article);
 

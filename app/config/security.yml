@@ -4,29 +4,43 @@ jms_security_extra:
     expressions: true
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        #Symfony\Component\Security\Core\User\User: plaintext
+        Sdz\Bundle\UserBundle\Entity\User: sha512
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:       [ROLE_AUTEUR, ROLE_MODERATEUR]       # Un admin hérite des droits d'auteur et de modérateur
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] # On garde ce rôle superadmin, il nous resservira par la suite
     providers:
-        in_memory: # nom du provider
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        #in_memory: # nom du provider
+            #memory:
+                #users:
+                    #user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    #admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        main:
+            #entity: { class: Sdz\UserBundle\Entity\User, property: username }
+            id: fos_user.user_provider.username
     firewalls:
         dev:  #nom du parefeu
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false #pas d authentification ni de identification
+        main_login:
+            # Cette expression régulière permet de prendre /login (mais pas /login_check !)
+            pattern:   ^/login$
+            anonymous: true # On autorise alors les anonymes sur ce pare-feu
         main:
             pattern:   ^/
             anonymous: true #authenfication en anonimous ok
-            provider:  in_memory
+            provider:  main
             form_login: 
-                login_path: login # nom de la route de la page de login
-                check_path: login_check # nom de la route qui vérifie l utilisateur , pas besoin de controller pour elle symfony gere tout seul. il faudra juste mettre le chemin (path de la route)
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                #login_path: login # nom de la route de la page de login
+                #check_path: login_check # nom de la route qui vérifie l utilisateur , pas besoin de controller pour elle symfony gere tout seul. il faudra juste mettre le chemin (path de la route)
             logout:
-                path:   logout # nom de la route logout (symfony gere le controller aussi)
+                path:       fos_user_security_logout
+                #path:   logout # nom de la route logout (symfony gere le controller aussi)
                 target: /blog  #URL vers laquelle sera redirigé le visiteur après sa déconnexion.
+            remember_me:
+                key:        %secret% # %secret% est un paramètre de parameters.yml
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN, ip: 127.0.0.1, requires_channel: https }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
