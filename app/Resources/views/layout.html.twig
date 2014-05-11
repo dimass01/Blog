@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+     
     <title>{% block title %}Sdz{% endblock %}</title>
 
     {% block stylesheets %}
@@ -11,8 +11,15 @@
   </head>
 
   <body>
+      
     <div class="container">
       <div id="header" class="hero-unit">
+          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                Connecté en tant que {{ app.user.username }} - <a href="{{
+                path('fos_user_security_logout') }}">Déconnexion</a>
+                {% else %}
+                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+           {% endif %}
         <h1>Mon Projet Symfony2</h1>
         <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
         <p><a class="btn btn-primary btn-large" href="http://www.siteduzero.com/informatique/tutoriels/developpez-votre-site-web-avec-le-framework-symfony2">

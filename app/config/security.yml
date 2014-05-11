@@ -28,7 +28,7 @@ security:
             anonymous: true # On autorise alors les anonymes sur ce pare-feu
         main:
             pattern:   ^/
-            anonymous: true #authenfication en anonimous ok
+            anonymous: false #authenfication en anonimous ok
             provider:  main
             form_login: 
                 login_path: fos_user_security_login

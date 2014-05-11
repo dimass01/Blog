@@ -373,6 +373,30 @@ public function testAction()
   return new Response('Slug généré : '.$article->getSlug()); // Affiche « Slug généré : l-histoire-d-un-bon-weekend »
 }
 
-  }
+    /**
+     * @Route(
+     *  path="/test_fos",
+     *  name="sdzblog_testfos"
+     * )
+     * @Template()
+    */   
+     public function test_fosAction()
+     {
+    $userManager = $this->get('fos_user.user_manager');
+    // Pour charger un utilisateur
+    //$user = $userManager->findUserBy(array('username' => 'titi'));
+    $user=$this->getUser();
+    // Pour modifier un utilisateur
+    $user->setEmail('cetemail@nexiste.pas');
+    $user->addRole('ROLE_ADMIN');
+    $userManager->updateUser($user); // Pas besoin de faire un flush avec l'EntityManager, cette méthode le fait toute seule !
+    // Pour supprimer un utilisateur
+    //$userManager->deleteUser($user);
+    // Pour récupérer la liste de tous les utilisateurs
+   // $users = $userManager->findUsers();
+    
+    return new Response($user->getEmail());
+    }
+ }
 
 
