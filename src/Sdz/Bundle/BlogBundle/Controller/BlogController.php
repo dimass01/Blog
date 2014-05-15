@@ -34,7 +34,7 @@ class BlogController extends Controller
         
         $text="eaeaeae";
         // On récupère le service
-        $antispam = $this->container->get('sdz_blog.antispam');
+       $antispam = $this->container->get('sdz_blog.antispam');
 
         // Je pars du principe que $text contient le texte d'un message quelconque
         if ($antispam->isSpam($text)) {

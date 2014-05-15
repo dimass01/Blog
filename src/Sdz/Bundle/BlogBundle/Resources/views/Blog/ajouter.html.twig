@@ -7,7 +7,7 @@
   <h2>Ajouter un article</h2>
   {% include "SdzBlogBundle:Blog:formulaire.html.twig" %}
   <p>
-    Vous ajouter un article
+    Vous ajouter un article {{ checkIfSpam("vaeazeer") }}
   </p>
   <p>
     <a href="{{ path('sdzblog_accueil')}}" class="btn">

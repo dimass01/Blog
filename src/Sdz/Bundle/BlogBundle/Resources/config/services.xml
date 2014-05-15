@@ -23,13 +23,22 @@
     <services>
         <service id="sdz_blog.antispam" class="Sdz\Bundle\BlogBundle\Antispam\SdzAntispam">
             <argument type="service" id="mailer" />
-            <argument>%locale%</argument>
             <argument>3</argument>
+            
+            <call method="setLocale">
+                    <argument>%locale%</argument>
+                </call>
+            <tag name="twig.extension"/>
         </service>
          <service id="sdzblog.validator.antiflood" class="Sdz\Bundle\BlogBundle\Validator\Constraint\AntiFloodValidator" scope="request">
             <argument type="service" id="request" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="validator.constraint_validator"  alias="sdzblog_antiflood"/>
+        </service>
+        
+        
+        <service id="sdz_blog.ckeditor" class="Sdz\Bundle\BlogBundle\Form\Type\CkeditorType">
+            <tag name="form.type" alias="ckeditor" />
         </service>
     </services>
 
