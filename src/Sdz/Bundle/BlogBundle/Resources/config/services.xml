@@ -40,6 +40,12 @@
         <service id="sdz_blog.ckeditor" class="Sdz\Bundle\BlogBundle\Form\Type\CkeditorType">
             <tag name="form.type" alias="ckeditor" />
         </service>
+        
+        <service id="sdzblog.beta_listener" class="Sdz\Bundle\BlogBundle\Beta\BetaListener">
+            <argument>2014-08-19</argument>
+          
+            <tag name="kernel.event_listener"  event="kernel.response" method="onKernelResponse"/>
+        </service>
     </services>
 
     
