@@ -2,6 +2,7 @@
 namespace Sdz\Bundle\BlogBundle\Beta;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 class BetaListener
 {
@@ -48,6 +49,11 @@ class BetaListener
     }
     // On n'oublie pas d'enregistrer les modifications dans l'évènement
     $event->setResponse($response);
+  }
+  
+  public function onKernelController( FilterControllerEvent $event) {
+    $controller = $event->getController();
+   $event->setController($controller);
   }
   
   

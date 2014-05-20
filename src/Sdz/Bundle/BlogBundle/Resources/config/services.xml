@@ -45,6 +45,7 @@
             <argument>2014-08-19</argument>
           
             <tag name="kernel.event_listener"  event="kernel.response" method="onKernelResponse"/>
+            <tag name="kernel.event_listener"  event="kernel.controller" method="onKernelController"/>
         </service>
     </services>
 
