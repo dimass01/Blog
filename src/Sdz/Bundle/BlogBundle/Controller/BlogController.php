@@ -13,6 +13,7 @@ Use Sdz\Bundle\BlogBundle\Entity\Commentaire;
 Use Sdz\Bundle\BlogBundle\Form\ArticleType;
 Use Sdz\Bundle\BlogBundle\Form\ArticleEditType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BlogController extends Controller
 {
@@ -58,7 +59,8 @@ class BlogController extends Controller
     
 
      /**
-     * @Route("/article/{slug}", name="sdzblog_voir")
+     * @Route("/article/{article_slug}", name="sdzblog_voir")
+     * @ParamConverter("article", options={"mapping": {"article_slug": "slug"}})
      * @Template()
      */
   
@@ -397,6 +399,19 @@ public function testAction()
     
     return new Response($user->getEmail());
     }
+    /**
+     * @Route(
+     *  path="/test_param/{date}",
+     *  name="sdz_test_param"
+     * )
+     * @ParamConverter("date", options={"format": "Y-m-d"})
+     * @Template()
+    */   
+    public function test_param_convertersAction(\Datetime $date)
+    {
+        return new Response($date->format('m-d-Y'));
+    }
+    
  }
 
 

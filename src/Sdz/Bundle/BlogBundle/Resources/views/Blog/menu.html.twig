@@ -2,6 +2,6 @@
 
 <ul class="nav nav-pills nav-stacked">
   {% for article in liste_articles %}
-    <li><a href="{{ path('sdzblog_voir', {'slug': article.slug}) }}">{{ article.titre }}</a></li>
+    <li><a href="{{ path('sdzblog_voir', {'article_slug': article.slug}) }}">{{ article.titre }}</a></li>
   {% endfor %}
 </ul>
