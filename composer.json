@@ -24,7 +24,7 @@
         "jms/security-extra-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
         "winzou/console-bundle": "dev-master",
-        "symfony-cmf/menu-bundle": "dev-master"
+        "symfony-cmf/menu-bundle": "dev-orm_support"
     },
     "scripts": {
         "post-install-cmd": [

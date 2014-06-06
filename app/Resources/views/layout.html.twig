@@ -18,7 +18,7 @@
   </head>
 
   <body>
-      
+     {{ knp_menu_render('SdzBlogBundle:Builder:mainMenu') }} 
     <div class="container">
       <div id="header" class="hero-unit">
           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
